@@ -1,0 +1,76 @@
+  // return Scaffold(
+    //   appBar: AppBar(title: const Text('Session Progress')),
+    //   body: Center(
+    //     child: Consumer<BleProvider>(
+    //       builder: (context, bleProvider, child) {
+    //         final receivedData = bleProvider.receivedData;
+    //         if (receivedData != null) {
+    //           int? intValue = int.tryParse(receivedData); // Try to parse the String to int
+    //           //if (intValue != null && (recentValues.isEmpty || recentValues.last != intValue)) {
+    //             // Only add new values if they are different from the last one
+    //             if (recentValues.length >= 20) recentValues.removeAt(0); // Limit to the last 20 values
+    //             recentValues.add(intValue!);
+    //             if(intValue == 0){
+    //               count0++;
+    //             } else {
+    //               count1++;
+    //             }
+    //           //}
+    //         }
+    //         return Column(
+    //           mainAxisAlignment: MainAxisAlignment.center,
+    //           children: [
+    //             Text(
+    //               receivedData != null ? "Receiving TRNG Numbers: $receivedData at ${DateTime.now().second.toString().padLeft(6, '0')}" : "No TRNG Numbers Received",
+    //               style: const TextStyle(fontWeight: FontWeight.w600),
+    //             ),
+    //             Text('Time Remaining: ${remainingTime ~/ 60}:${(remainingTime % 60).toString().padLeft(2, '0')}',
+    //           style: Theme.of(context).textTheme.headlineMedium),
+    //             const SizedBox(height: 20),
+    //             Wrap(
+    //               children: [
+    //                 Row(
+    //                   children: [
+    //                     ...recentValues.map((data) => Container(
+    //                        padding: const EdgeInsets.all(4),
+    //                        color: data == 0 ? Colors.red : Colors.green,
+    //                        child: Text(data.toString(), style: const TextStyle(color: Colors.white)), // Changed to data.toString()
+    //                     )).toList(),
+    //                   ],
+    //                 ),
+    //                 Text('Count of 0: $count0, ', style: const TextStyle(color: Colors.black)),
+    //                 Text('Count of 1: $count1, ', style: const TextStyle(color: Colors.black)),
+                    
+    //               ],
+    //               // children: recentValues.map((value) {
+    //               //   return Container(
+    //               //     padding: const EdgeInsets.all(4),
+    //               //     color: value == 0 ? Colors.red : Colors.green,
+    //               //     child: Text('$value', style: const TextStyle(color: Colors.white)),
+    //               //   );
+    //               // }).toList(),
+    //             ),
+    //           ],
+    //         );
+    //       },
+    //     ),
+    //   ),
+    bottomNavigationBar: Container(
+        color: Colors.blue[100], // Change color as needed
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              bleProvider != null && bleProvider?.isConnected  == true ? "Connected to Bluetooth" : "Disconnected from Bluetooth",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              bleProvider?.receivedData != null ? "Receiving TRNG Numbers: ${bleProvider?.receivedData}" : "No TRNG Numbers Received",
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
